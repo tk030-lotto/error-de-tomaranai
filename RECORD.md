@@ -15,4 +15,5 @@
   - 再エラー時のスムーズなリトライ機能 ＆ シリーズ第6弾『これでいいの？』次回予告
   - MIT License（LICENSE, README.md）および GitHub Pages対応（.nojekyll）
 - 4段階品質監査（コード構文・プロトコルアライメント・機能UI/UX・セキュリティ公開適合性）を実施し、Grade A+（即時公開可能）を確認。
+- note記事・X（旧Twitter）兼用デモGIF画像（`demo.gif`、800×560px、887KB）を作成し、プロジェクト直下およびREADME.mdに配置。
 - GitマイクロコミットおよびGitHubプライベートリポジトリへのPushを完了。
