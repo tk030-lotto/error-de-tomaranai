@@ -83,7 +83,7 @@
           </div>
 
           <!-- Situation Chips -->
-          <div class="preset-chips">
+          <div class="preset-chips" id="situationChips">
             <span class="preset-label">状況例：</span>
             <button type="button" class="chip" data-situation="アプリを起動したとき（コマンド実行時）">起動したとき</button>
             <button type="button" class="chip" data-situation="画面のボタンを押したとき">ボタンを押したとき</button>
@@ -166,6 +166,12 @@
               <span class="toggle-icon">▼</span>
             </button>
             <div class="accordion-body" id="modifyAccordion">
+              <div class="preset-chips">
+                <span class="preset-label">よくある修正要望：</span>
+                <button type="button" class="chip" data-modify="原因だけを分かりやすく箇条書きで教えて">原因だけ知りたい</button>
+                <button type="button" class="chip" data-modify="専門用語を使わず、超初心者向けに噛み砕いて説明して">初心者向けに説明して</button>
+                <button type="button" class="chip" data-modify="コピペで直せる具体的な修正コードを最優先で教えて">修正方法を具体的に聞きたい</button>
+              </div>
               <input type="text" id="modifyInput" placeholder="例: 「原因だけを1行で教えて」「小学生でも分かるように解説して」" />
               <button type="button" class="btn btn-secondary" id="applyModifyBtn">要望を反映して再生成</button>
             </div>

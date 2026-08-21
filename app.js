@@ -34,6 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // State
   let currentStyle = 'standard';
+  let currentCustomMod = '';
   let lastGeneratedPrompt = '';
 
   // 1. Hero -> App View
@@ -51,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
     errorCharCount.textContent = `${errorInput.value.length} 文字`;
   });
 
-  // 3. Preset Chips (Error & Situation)
+  // 3. Preset Chips (Error, Situation, Modify)
   document.querySelectorAll('.chip[data-error]').forEach(chip => {
     chip.addEventListener('click', () => {
       const val = chip.getAttribute('data-error');
@@ -65,10 +66,25 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  document.querySelectorAll('.chip[data-situation]').forEach(chip => {
+  const situationChips = document.querySelectorAll('.chip[data-situation]');
+  situationChips.forEach(chip => {
     chip.addEventListener('click', () => {
+      situationChips.forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
       situationInput.value = chip.getAttribute('data-situation');
       situationInput.focus();
+    });
+  });
+
+  document.querySelectorAll('.chip[data-modify]').forEach(chip => {
+    chip.addEventListener('click', () => {
+      const modText = chip.getAttribute('data-modify');
+      if (modifyInput) {
+        modifyInput.value = modText;
+        currentCustomMod = modText;
+        generatePrompt();
+        showToast('修正要望を反映しました');
+      }
     });
   });
 
@@ -102,7 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // 6. Generate Prompt Logic
-  function generatePrompt(customInstruction = '') {
+  function generatePrompt() {
     const errorText = errorInput.value.trim() || '（エラーメッセージ未入力）';
     const situation = situationInput.value.trim() || '操作実行時';
     const prevChange = prevChangeInput.value.trim();
@@ -164,8 +180,8 @@ document.addEventListener('DOMContentLoaded', () => {
       prompt += `■ 補足情報\n${supplements.join('\n')}\n\n`;
     }
 
-    if (customInstruction) {
-      prompt += `■ 追加の要望\n${customInstruction}\n\n`;
+    if (currentCustomMod) {
+      prompt += `■ 追加の要望\n${currentCustomMod}\n\n`;
     }
 
     prompt += `■ AIへのお願い\n${requests.join('\n')}\n`;
@@ -194,7 +210,8 @@ document.addEventListener('DOMContentLoaded', () => {
         showToast('修正要望を入力してください');
         return;
       }
-      generatePrompt(customMod);
+      currentCustomMod = customMod;
+      generatePrompt();
       showToast('要望を反映して質問文を再生成しました');
     });
   }
@@ -206,7 +223,6 @@ document.addEventListener('DOMContentLoaded', () => {
       await navigator.clipboard.writeText(lastGeneratedPrompt);
       showToast('📋 コピーしました。AIに送ってみましょう！');
     } catch (err) {
-      // Fallback
       const textarea = document.createElement('textarea');
       textarea.value = lastGeneratedPrompt;
       document.body.appendChild(textarea);
@@ -225,6 +241,8 @@ document.addEventListener('DOMContentLoaded', () => {
     envInput.value = '';
     expectInput.value = '';
     if (modifyInput) modifyInput.value = '';
+    currentCustomMod = '';
+    situationChips.forEach(c => c.classList.remove('active'));
     errorCharCount.textContent = '0 文字';
     resultCard.classList.add('hidden');
     outputText.textContent = '';
