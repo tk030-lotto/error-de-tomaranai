@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>エラーで止まらない。 - AIエラートラブルシューティング</title>
+  <meta name="description" content="AI開発中に発生したエラーをそのまま貼り付けるだけ。原因・確認方法・修正コードをAIへ相談するための最適な質問文を即座に作成する無料Webアシスタントツールです。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/screens.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="badge">躊躇してないで、とにかく作ってみよう。シリーズ 第5弾</div>
+      <h1 class="title">エラーで止まらない。</h1>
+      <p class="subtitle">AIエラートラブルシューティング</p>
+      <p class="lead-text">
+        エラーが出ても、開発が終わったわけではありません。<br>
+        エラーをAIに見せて、原因と直し方を聞いてみましょう。
+      </p>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Hero Section (Welcome) -->
+      <section class="card hero-card" id="heroSection">
+        <p class="hero-quote">
+          「エラーが出た？」<br>
+          <span>そこで止まらない。AIに聞いてみよう。</span>
+        </p>
+        <p class="hero-desc">
+          プログラミング経験が少なくても大丈夫。<br>
+          表示されたエラーと状況をそのまま入力するだけで、AIが原因と直し方を丁寧に教えてくれる質問文を自動生成します。
+        </p>
+        <button type="button" class="btn btn-primary btn-large" id="startBtn">
+          🚀 エラーを相談してみる
+        </button>
+      </section>
+
+      <!-- App Form Section -->
+      <div id="appSection" class="main-content hidden">
+        <!-- Step 1: Error Input -->
+        <section class="card">
+          <div class="card-header">
+            <h2 class="section-title">
+              <span class="step-num">1</span>
+              どんなエラーが出ましたか？
+            </h2>
+            <span class="char-counter" id="errorCharCount">0 文字</span>
+          </div>
+
+          <!-- Quick Chips -->
+          <div class="preset-chips">
+            <span class="preset-label">よくあるエラー例：</span>
+            <button type="button" class="chip" data-error="Module not found: Can't resolve ...">モジュールが見つからない (Module not found)</button>
+            <button type="button" class="chip" data-error="SyntaxError: Unexpected token ...">構文エラー (SyntaxError)</button>
+            <button type="button" class="chip" data-error="TypeError: Cannot read properties of undefined">未定義エラー (TypeError)</button>
+            <button type="button" class="chip" data-error="赤い文字でエラーが出て止まってしまいました">赤い文字のエラーが出た</button>
+            <button type="button" class="chip" data-error="画面が真っ白になって何も表示されません">画面が真っ白になった</button>
+          </div>
+
+          <div class="textarea-wrapper">
+            <textarea
+              id="errorInput"
+              rows="5"
+              placeholder="ターミナルやブラウザに表示されたエラーメッセージをそのまま貼り付けてください。&#10;例: Uncaught ReferenceError: x is not defined&#10;※「赤い文字が出た」「動かなくなった」などの大まかな状況でもOKです。"
+            ></textarea>
+          </div>
+        </section>
+
+        <!-- Step 2: Situation Input -->
+        <section class="card">
+          <div class="card-header">
+            <h2 class="section-title">
+              <span class="step-num">2</span>
+              いつエラーが出ましたか？
+            </h2>
+          </div>
+
+          <!-- Situation Chips -->
+          <div class="preset-chips">
+            <span class="preset-label">状況例：</span>
+            <button type="button" class="chip" data-situation="アプリを起動したとき（コマンド実行時）">起動したとき</button>
+            <button type="button" class="chip" data-situation="画面のボタンを押したとき">ボタンを押したとき</button>
+            <button type="button" class="chip" data-situation="ファイルを保存・読み込みしようとしたとき">保存・読込時</button>
+            <button type="button" class="chip" data-situation="さっきまで動いていたのに突然動かなくなった">突然動かなくなった</button>
+            <button type="button" class="chip" data-situation="よく分からないが動かない">よく分からない</button>
+          </div>
+
+          <div class="textarea-wrapper">
+            <input
+              type="text"
+              id="situationInput"
+              placeholder="例: ボタンを押したとき / npm run dev を実行したとき"
+            />
+          </div>
+
+          <!-- Step 3: Optional Details Accordion -->
+          <div class="accordion">
+            <button type="button" class="accordion-header" id="contextToggleBtn">
+              <span>➕ その他の情報（直前の変更や環境など・任意）</span>
+              <span class="toggle-icon">▼</span>
+            </button>
+            <div class="accordion-body" id="contextAccordion">
+              <div>
+                <label style="font-size: 0.85rem; color: var(--text-secondary); display: block; margin-bottom: 4px;">直前に変更したこと・試したこと</label>
+                <input type="text" id="prevChangeInput" placeholder="例: 新しいライブラリをインストールした / コードを1行書き換えた" />
+              </div>
+              <div>
+                <label style="font-size: 0.85rem; color: var(--text-secondary); display: block; margin-bottom: 4px;">使用環境 / 言語</label>
+                <input type="text" id="envInput" placeholder="例: Windows, Python / JavaScript (HTML/CSS) / Node.js" />
+              </div>
+              <div>
+                <label style="font-size: 0.85rem; color: var(--text-secondary); display: block; margin-bottom: 4px;">本来期待していた動作</label>
+                <input type="text" id="expectInput" placeholder="例: ボタンを押したら計算結果が画面に表示されるはずだった" />
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top: 20px;">
+            <button type="button" class="btn btn-primary btn-large" id="generateBtn">
+              ✨ AIへの質問文を作成する
+            </button>
+          </div>
+        </section>
+
+        <!-- Result Section (Generated Prompt) -->
+        <section class="card hidden" id="resultCard">
+          <div class="card-header">
+            <h2 class="section-title">
+              <span class="step-num">3</span>
+              生成された質問文
+            </h2>
+            <button type="button" class="btn btn-copy" id="copyBtn">
+              📋 質問文をコピー
+            </button>
+          </div>
+
+          <!-- Style Tabs -->
+          <div class="style-tabs">
+            <button type="button" class="tab-btn active" data-style="standard">標準（おすすめ）</button>
+            <button type="button" class="tab-btn" data-style="beginner">超初心者向け</button>
+            <button type="button" class="tab-btn" data-style="cause-first">原因特定特化</button>
+            <button type="button" class="tab-btn" data-style="code-fix">急ぎ・修正コード重視</button>
+          </div>
+
+          <div class="output-box" id="outputText"></div>
+
+          <!-- AI Launch Links -->
+          <div class="ai-links">
+            <span class="ai-link-label">コピー後、そのままAIへ送信：</span>
+            <a href="https://chatgpt.com" target="_blank" rel="noopener noreferrer" class="ai-link-btn">ChatGPT ↗</a>
+            <a href="https://claude.ai" target="_blank" rel="noopener noreferrer" class="ai-link-btn">Claude ↗</a>
+            <a href="https://gemini.google.com" target="_blank" rel="noopener noreferrer" class="ai-link-btn">Gemini ↗</a>
+          </div>
+
+          <!-- Modify Section -->
+          <div class="accordion" style="margin-top: 16px;">
+            <button type="button" class="accordion-header" id="modifyToggleBtn">
+              <span>✏️ 質問文を修正・再生成する（任意）</span>
+              <span class="toggle-icon">▼</span>
+            </button>
+            <div class="accordion-body" id="modifyAccordion">
+              <input type="text" id="modifyInput" placeholder="例: 「原因だけを1行で教えて」「小学生でも分かるように解説して」" />
+              <button type="button" class="btn btn-secondary" id="applyModifyBtn">要望を反映して再生成</button>
+            </div>
+          </div>
+
+          <!-- Aftermath Banner -->
+          <div class="action-banner">
+            <div class="banner-text">
+              <strong>💡 AIに回答をもらった後は？</strong><br>
+              指示に従って修正し、もう一度動かしてみましょう。
+            </div>
+            <div class="btn-group">
+              <button type="button" class="btn btn-secondary" id="retryBtn">🔄 別のエラーが出た（再相談）</button>
+              <button type="button" class="btn btn-ghost" id="resetBtn">リセット</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Next Series Banner -->
+        <section class="next-series-card">
+          <div class="next-series-header">
+            <span class="next-badge">次回予告</span>
+            <h3 class="next-title">シリーズ第6弾 『これでいいの？』</h3>
+          </div>
+          <p class="next-desc">
+            「AIが作ったものを人間が検証・セルフチェックする」新しい領域へ。<br>
+            修正が完了した後の品質確認や安心感を手に入れるためのチェックアシスタントツールです。
+          </p>
+        </section>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <ul class="footer-links">
+        <li><a href="https://github.com/tk030-lotto/error-de-tomaranai" target="_blank" rel="noopener noreferrer">GitHub Repository</a></li>
+        <li><span>MIT License</span></li>
+      </ul>
+      <p>© 2026 tk030 - 躊躇してないで、とにかく作ってみよう。シリーズ</p>
+    </footer>
+  </div>
+
+  <!-- Toast Element -->
+  <div class="toast" id="toast"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>

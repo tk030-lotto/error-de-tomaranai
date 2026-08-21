@@ -1,173 +1,104 @@
- エラーで止まらない。
-
-## AIエラートラブルシューティング
-
-> エラーが出た？
->
-> そこで止まらない。
->
-> AIに聞いてみよう。
-
-AIを使ってソフトウェアを作っていると、エラーが出ることがあります。
-
-プログラミング経験が少ないと、
-
-> 「何が悪いのか分からない」
-
-> 「このエラーは何？」
-
-> 「どう直せばいいの？」
-
-となってしまいます。
-
-このツールは、そんなときにエラー情報をAIへ伝えるための質問を整理する小さなWebツールです。
-
----
-
-## コンセプト
-
 # エラーで止まらない。
 
-エラーが出ても、開発が終わったわけではありません。
+> **躊躇してないで、とにかく作ってみよう。シリーズ 第5弾**  
+> **AIエラートラブルシューティング Webアシスタント**
 
-まず、
-
-**エラーをAIに見せる。**
-
-そして、
-
-**原因を聞く。**
-
-さらに、
-
-**修正方法を聞く。**
-
-それだけです。
+![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
+![Zero-Dependency](https://img.shields.io/badge/Dependencies-Zero-success.svg)
+![Platform: Web / Mobile](https://img.shields.io/badge/Platform-Web%20%2F%20Mobile-orange.svg)
 
 ---
 
-## 使い方
+## 🌟 コンセプト
 
-### 1. エラーを入力する
+> エラーが出た？  
+> そこで止まらない。  
+> **AIに聞いてみよう。**
 
-表示されたエラーメッセージを、そのまま入力します。
+AIを使ってソフトウェアを作っていると、必ずエラーが出ることがあります。  
+プログラミング経験が少ないと、
 
-コピーできる場合はコピー＆ペーストで構いません。
+- 「何が悪いのか分からない」
+- 「英語の赤い文字が怖い」
+- 「どう直せばいいのか分からない」
 
----
+となってしまい、そこで開発を止めてしまいがちです。
 
-### 2. 状況を入力する
-
-例えば、
-
-> 「ファイルを保存しようとしたら出ました」
-
-> 「ボタンを押したら出ました」
-
-> 「起動したときに出ました」
-
-など、分かる範囲で入力します。
-
-詳しく説明できなくても大丈夫です。
+本ツールは、**表示されたエラーと発生時の状況をそのまま入力するだけで、AI（ChatGPT / Claude / Gemini 等）へ投げる最適な質問文を瞬時に作成する**無料Webツールです。
 
 ---
 
-### 3. AIに聞く
+## ✨ 主な特徴
 
-入力された内容をもとに、AIへ送る質問文を作成します。
-
-AIには、
-
-- エラーの意味
-- 考えられる原因
-- 確認すべき場所
-- 修正方法
-- 修正後の確認方法
-
-を説明してもらいます。
-
----
-
-### 4. AIの指示を確認する
-
-生成された質問をコピーして、普段使っているAIへ送ります。
-
-AIから回答を受け取ったら、その内容を確認します。
+1. **Zero-Dependency / ブラウザ完結**  
+   外部サーバーやライブラリに一切依存せず、PC・スマートフォンのブラウザ上で瞬時に動作します。
+2. **ワンクリックで質問文を即時生成**  
+   エラーメッセージと状況を選ぶだけで、AIに「意味・原因・確認方法・修正手順・修正後確認」を分かりやすく解説させる質問文を作成。
+3. **選べる4つの質問スタイル**  
+   - **標準（おすすめ）**: 原因から修正コードまで網羅的に質問
+   - **超初心者向け**: 専門用語を噛み砕いた解説を要求
+   - **原因特定特化**: まず根本原因の絞り込みを優先
+   - **急ぎ・修正コード重視**: コピペできる修正コードを最優先
+4. **ワンクリックコピー & AI直通リンク**  
+   質問文を1秒でクリップボードにコピーし、ChatGPT/Claude/GeminiなどのAIへすぐに送信可能。
+5. **洗練されたミニマル・ダークUI**  
+   開発への集中を妨げない、目に優しいシックなダークテーマデザイン。
 
 ---
 
-### 5. 修正してみる
+## 🚀 使い方
 
-AIの指示に従って修正します。
-
-修正後、もう一度動かしてみます。
-
----
-
-### 6. またエラーが出たら
-
-大丈夫です。
-
-もう一度AIに聞きます。
-
-エラーが変わった場合は、新しいエラーをAIに渡します。
-
-**エラーが出るたびにAIに聞けばいい。**
+1. **エラーを入力する**  
+   画面やターミナルに出たエラーメッセージを貼り付けるか、プリセットチップ（Module not found、SyntaxError、画面真っ白 等）を選択します。
+2. **状況を入力する**  
+   「起動したとき」「ボタンを押したとき」などの発生タイミングを選択・入力します。
+3. **質問文を生成・コピーする**  
+   ［AIへの質問文を作成する］を押し、生成された文章を［質問文をコピー］します。
+4. **普段お使いのAIに送信する**  
+   AIから届いたアドバイスに従ってコードを修正し、もう一度動かしてみましょう！
+5. **またエラーが出たら**  
+   大丈夫です。新しいエラーを再度本ツールに入力して、解決するまでAIに聞けば問題ありません。
 
 ---
 
-## エラーを説明できなくても大丈夫
+## 🛠️ 技術仕様
 
-このツールでは、完璧な説明を要求しません。
-
-例えば、
-
-> 「赤い文字が出た」
-
-> 「ボタンを押したら動かなくなった」
-
-> 「さっきまで動いていたのに動かなくなった」
-
-という程度でも構いません。
-
-分かることだけ入力してください。
+- **フロントエンド**: Vanilla HTML5, Vanilla CSS3 (CSS Variables), Vanilla JavaScript (ES6+)
+- **デザインシステム**: 機能的ミニマル・ダークUI（`#09090b` / `#121215` / `#27272a`）
+- **公開環境**: GitHub Pages 対応（`.nojekyll` 配置済み）
 
 ---
 
-## このツールがしないこと
+## 🗺️ 「躊躇してないで、とにかく作ってみよう。」シリーズ
 
-このツール自身がエラーを解析するわけではありません。
-
-AI APIも内蔵しません。
-
-エラーを利用者のPCから自動取得することもしません。
-
-このツールの役割は、
-
-> **「エラーをAIに相談する」**
-
-ための質問を作ることです。
+1. **① 何を作るか決めよう。** ➔ 「作りたいものがない」を解決
+2. **② AIに聞いてみよう。** ➔ 「どう始めればいいか分からない」を解決
+3. **③ まず動かしてみよう。** ➔ 「AIが作ったコードの動かし方が分からない」を解決
+4. **④ エラーで止まらない。** ➔ 「動かしたらエラーが出た」を解決（本作）
+5. **⑤ これでいいの？** ➔ 「AIが作ったものを人間が検証する」へ（次回作）
 
 ---
 
-## 対象
-
-- AI開発初心者
-- プログラミング経験が少ない人
-- AIにコードを作ってもらっている人
-- エラーの意味が分からない人
-- エラーが出ると開発を止めてしまう人
-
----
-
-## 公開
-
-GitHub Pagesで利用できる無料Webツールとして公開します。
-
-インストールは必要ありません。
-
----
-
-## ライセンス
+## 📄 ライセンス
 
 MIT License
+
+Copyright (c) 2026 tk030
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
