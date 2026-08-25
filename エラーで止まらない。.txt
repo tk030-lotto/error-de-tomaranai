@@ -1,5 +1,7 @@
 # エラーで止まらない。
 
+Webツール（GitHub Pages）: https://tk030-lotto.github.io/error-de-tomaranai/
+
 ## エラーが出たら、AIに聞いてみよう
 
 AIにソフトウェアを作ってもらった。
@@ -492,3 +494,10 @@ AIへの質問を作る。
 > **AIに聞いてみよう。**
 
 「エラーで止まらない。」は、そのための小さなWebツールです。
+
+---
+
+### リンク
+
+- **Webツール（GitHub Pages）**: https://tk030-lotto.github.io/error-de-tomaranai/
+- **GitHubリポジトリ**: https://github.com/tk030-lotto/error-de-tomaranai
