@@ -38,5 +38,6 @@
 - GitHub Pages（`main` ブランチ ルート `/` 配信）を有効化し、本番Webアプリを公開デプロイ完了。
   - 公開URL: `https://tk030-lotto.github.io/error-de-tomaranai/`
 - `README.md` にライブデモバッジおよびアクセスリンクを追加。
+- GitHubリポジトリのAbout欄（Description, Homepage URL, Topics）を設定。
 - 開発記録・永続保存およびGitマイクロコミット・リモートPush完了。
 
