@@ -1,0 +1,166 @@
+/* ----------------------------------------------------
+   css/forms.css
+   エラーで止まらない。ツール - フォーム・ボタン・チップ
+   入力フォーム, プリセットチップ, ボタングループ (QA-001分割)
+---------------------------------------------------- */
+
+/* Preset Chips */
+.preset-chips {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.preset-label {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.chip {
+  background: #19191e;
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  font-family: var(--font-sans);
+  padding: 5px 11px;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.chip:hover {
+  background: #23232a;
+  border-color: var(--text-muted);
+  color: #ffffff;
+}
+
+.chip.active {
+  background: rgba(239, 68, 68, 0.15);
+  border-color: var(--accent-primary);
+  color: var(--text-accent);
+}
+
+/* Textarea & Inputs */
+.textarea-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+textarea, input[type="text"] {
+  width: 100%;
+  background: var(--bg-input);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 1rem; /* iOS Safari 自動ズーム防止 (QA-002) */
+  padding: 14px 16px;
+  outline: none;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 110px;
+  line-height: 1.6;
+}
+
+textarea:focus, input[type="text"]:focus {
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+textarea::placeholder, input[type="text"]::placeholder {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+/* Buttons */
+.btn-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 12px 22px;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.btn-primary {
+  background: var(--accent-primary);
+  color: #ffffff;
+}
+
+.btn-primary:hover {
+  background: var(--accent-primary-hover);
+  box-shadow: 0 4px 14px rgba(239, 68, 68, 0.3);
+}
+
+.btn-secondary {
+  background: #1c1c22;
+  border-color: var(--border-highlight);
+  color: var(--text-primary);
+}
+
+.btn-secondary:hover {
+  background: #26262e;
+  border-color: #3f3f46;
+}
+
+.btn-blue {
+  background: var(--accent-blue);
+  color: #ffffff;
+}
+
+.btn-blue:hover {
+  background: var(--accent-blue-hover);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-muted);
+  padding: 10px 14px;
+}
+
+.btn-ghost:hover {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.btn-copy {
+  background: #1e1e24;
+  border: 1px solid var(--border-highlight);
+  color: var(--text-primary);
+  font-size: 0.85rem;
+  padding: 6px 14px;
+  border-radius: var(--radius-sm);
+}
+
+.btn-copy:hover {
+  background: var(--accent-primary);
+  border-color: var(--accent-primary);
+  color: #ffffff;
+}
+
+.btn-large {
+  flex: 1;
+  min-width: 200px;
+  font-size: 1rem;
+  padding: 14px 24px;
+}

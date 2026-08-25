@@ -58,7 +58,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const val = chip.getAttribute('data-error');
       if (errorInput.value.trim() === '') {
         errorInput.value = val;
-      } else {
+      } else if (!errorInput.value.includes(val)) {
+        // QA-013: 重複追記を防止
         errorInput.value += `\n${val}`;
       }
       errorCharCount.textContent = `${errorInput.value.length} 文字`;
@@ -88,10 +89,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // 4. Accordion Toggle
+  // 4. Accordion Toggle (QA-009: aria-expanded 同期)
   if (contextToggleBtn && contextAccordion) {
     contextToggleBtn.addEventListener('click', () => {
       const isOpen = contextAccordion.classList.toggle('open');
+      contextToggleBtn.setAttribute('aria-expanded', String(isOpen));
       const icon = contextToggleBtn.querySelector('.toggle-icon');
       if (icon) icon.textContent = isOpen ? '▲' : '▼';
     });
@@ -100,16 +102,21 @@ document.addEventListener('DOMContentLoaded', () => {
   if (modifyToggleBtn && modifyAccordion) {
     modifyToggleBtn.addEventListener('click', () => {
       const isOpen = modifyAccordion.classList.toggle('open');
+      modifyToggleBtn.setAttribute('aria-expanded', String(isOpen));
       const icon = modifyToggleBtn.querySelector('.toggle-icon');
       if (icon) icon.textContent = isOpen ? '▲' : '▼';
     });
   }
 
-  // 5. Style Tabs
+  // 5. Style Tabs (QA-009: aria-selected 同期)
   document.querySelectorAll('.tab-btn').forEach(btn => {
     btn.addEventListener('click', () => {
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => {
+        b.classList.remove('active');
+        b.setAttribute('aria-selected', 'false');
+      });
       btn.classList.add('active');
+      btn.setAttribute('aria-selected', 'true');
       currentStyle = btn.getAttribute('data-style') || 'standard';
       if (resultCard && !resultCard.classList.contains('hidden')) {
         generatePrompt();
@@ -216,24 +223,36 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Copy Prompt
+  // Copy Prompt (QA-011: 戻り値検証 & エラーハンドリング)
   copyBtn.addEventListener('click', async () => {
     if (!lastGeneratedPrompt) return;
     try {
       await navigator.clipboard.writeText(lastGeneratedPrompt);
       showToast('📋 コピーしました。AIに送ってみましょう！');
     } catch (err) {
-      const textarea = document.createElement('textarea');
-      textarea.value = lastGeneratedPrompt;
-      document.body.appendChild(textarea);
-      textarea.select();
-      document.execCommand('copy');
-      document.body.removeChild(textarea);
-      showToast('📋 コピーしました。AIに送ってみましょう！');
+      console.warn('navigator.clipboard.writeText failed, attempting fallback execCommand:', err);
+      try {
+        const textarea = document.createElement('textarea');
+        textarea.value = lastGeneratedPrompt;
+        textarea.style.position = 'fixed';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+        textarea.select();
+        const success = document.execCommand('copy');
+        document.body.removeChild(textarea);
+        if (success) {
+          showToast('📋 コピーしました。AIに送ってみましょう！');
+        } else {
+          showToast('⚠️ コピーに失敗しました。手動でコピーしてください');
+        }
+      } catch (fallbackErr) {
+        console.error('Fallback clipboard copy failed:', fallbackErr);
+        showToast('⚠️ コピーに失敗しました。手動でコピーしてください');
+      }
     }
   });
 
-  // Reset / Clear
+  // Reset / Clear (QA-012: スタイル選択・タブ状態の完全初期化)
   function resetAll() {
     errorInput.value = '';
     situationInput.value = '';
@@ -242,6 +261,33 @@ document.addEventListener('DOMContentLoaded', () => {
     expectInput.value = '';
     if (modifyInput) modifyInput.value = '';
     currentCustomMod = '';
+    
+    // スタイルとタブの初期化
+    currentStyle = 'standard';
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      const isStandard = btn.getAttribute('data-style') === 'standard';
+      btn.classList.toggle('active', isStandard);
+      btn.setAttribute('aria-selected', String(isStandard));
+    });
+
+    // アコーディオンの折りたたみ
+    if (contextAccordion && contextAccordion.classList.contains('open')) {
+      contextAccordion.classList.remove('open');
+      if (contextToggleBtn) {
+        contextToggleBtn.setAttribute('aria-expanded', 'false');
+        const icon = contextToggleBtn.querySelector('.toggle-icon');
+        if (icon) icon.textContent = '▼';
+      }
+    }
+    if (modifyAccordion && modifyAccordion.classList.contains('open')) {
+      modifyAccordion.classList.remove('open');
+      if (modifyToggleBtn) {
+        modifyToggleBtn.setAttribute('aria-expanded', 'false');
+        const icon = modifyToggleBtn.querySelector('.toggle-icon');
+        if (icon) icon.textContent = '▼';
+      }
+    }
+
     situationChips.forEach(c => c.classList.remove('active'));
     errorCharCount.textContent = '0 文字';
     resultCard.classList.add('hidden');
@@ -271,3 +317,4 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 3000);
   }
 });
+

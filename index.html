@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/forms.css">
   <link rel="stylesheet" href="css/components.css">
   <link rel="stylesheet" href="css/screens.css">
 </head>
@@ -43,7 +44,7 @@
       </section>
 
       <!-- App Form Section -->
-      <div id="appSection" class="main-content hidden">
+      <div id="appSection" class="hidden" style="display: flex; flex-direction: column; gap: 24px;">
         <!-- Step 1: Error Input -->
         <section class="card">
           <div class="card-header">
@@ -69,6 +70,7 @@
               id="errorInput"
               rows="5"
               placeholder="ターミナルやブラウザに表示されたエラーメッセージをそのまま貼り付けてください。&#10;例: Uncaught ReferenceError: x is not defined&#10;※「赤い文字が出た」「動かなくなった」などの大まかな状況でもOKです。"
+              aria-label="発生したエラーメッセージの入力"
             ></textarea>
           </div>
         </section>
@@ -97,26 +99,27 @@
               type="text"
               id="situationInput"
               placeholder="例: ボタンを押したとき / npm run dev を実行したとき"
+              aria-label="エラー発生時の状況の入力"
             />
           </div>
 
           <!-- Step 3: Optional Details Accordion -->
           <div class="accordion">
-            <button type="button" class="accordion-header" id="contextToggleBtn">
+            <button type="button" class="accordion-header" id="contextToggleBtn" aria-expanded="false" aria-controls="contextAccordion">
               <span>➕ その他の情報（直前の変更や環境など・任意）</span>
               <span class="toggle-icon">▼</span>
             </button>
             <div class="accordion-body" id="contextAccordion">
               <div>
-                <label style="font-size: 0.85rem; color: var(--text-secondary); display: block; margin-bottom: 4px;">直前に変更したこと・試したこと</label>
+                <label for="prevChangeInput" style="font-size: 0.85rem; color: var(--text-secondary); display: block; margin-bottom: 4px;">直前に変更したこと・試したこと</label>
                 <input type="text" id="prevChangeInput" placeholder="例: 新しいライブラリをインストールした / コードを1行書き換えた" />
               </div>
               <div>
-                <label style="font-size: 0.85rem; color: var(--text-secondary); display: block; margin-bottom: 4px;">使用環境 / 言語</label>
+                <label for="envInput" style="font-size: 0.85rem; color: var(--text-secondary); display: block; margin-bottom: 4px;">使用環境 / 言語</label>
                 <input type="text" id="envInput" placeholder="例: Windows, Python / JavaScript (HTML/CSS) / Node.js" />
               </div>
               <div>
-                <label style="font-size: 0.85rem; color: var(--text-secondary); display: block; margin-bottom: 4px;">本来期待していた動作</label>
+                <label for="expectInput" style="font-size: 0.85rem; color: var(--text-secondary); display: block; margin-bottom: 4px;">本来期待していた動作</label>
                 <input type="text" id="expectInput" placeholder="例: ボタンを押したら計算結果が画面に表示されるはずだった" />
               </div>
             </div>
@@ -142,14 +145,14 @@
           </div>
 
           <!-- Style Tabs -->
-          <div class="style-tabs">
-            <button type="button" class="tab-btn active" data-style="standard">標準（おすすめ）</button>
-            <button type="button" class="tab-btn" data-style="beginner">超初心者向け</button>
-            <button type="button" class="tab-btn" data-style="cause-first">原因特定特化</button>
-            <button type="button" class="tab-btn" data-style="code-fix">急ぎ・修正コード重視</button>
+          <div class="style-tabs" role="tablist" aria-label="質問スタイル切り替え">
+            <button type="button" class="tab-btn active" role="tab" aria-selected="true" data-style="standard">標準（おすすめ）</button>
+            <button type="button" class="tab-btn" role="tab" aria-selected="false" data-style="beginner">超初心者向け</button>
+            <button type="button" class="tab-btn" role="tab" aria-selected="false" data-style="cause-first">原因特定特化</button>
+            <button type="button" class="tab-btn" role="tab" aria-selected="false" data-style="code-fix">急ぎ・修正コード重視</button>
           </div>
 
-          <div class="output-box" id="outputText"></div>
+          <div class="output-box" id="outputText" aria-live="polite"></div>
 
           <!-- AI Launch Links -->
           <div class="ai-links">
@@ -161,7 +164,7 @@
 
           <!-- Modify Section -->
           <div class="accordion" style="margin-top: 16px;">
-            <button type="button" class="accordion-header" id="modifyToggleBtn">
+            <button type="button" class="accordion-header" id="modifyToggleBtn" aria-expanded="false" aria-controls="modifyAccordion">
               <span>✏️ 質問文を修正・再生成する（任意）</span>
               <span class="toggle-icon">▼</span>
             </button>
@@ -172,7 +175,7 @@
                 <button type="button" class="chip" data-modify="専門用語を使わず、超初心者向けに噛み砕いて説明して">初心者向けに説明して</button>
                 <button type="button" class="chip" data-modify="コピペで直せる具体的な修正コードを最優先で教えて">修正方法を具体的に聞きたい</button>
               </div>
-              <input type="text" id="modifyInput" placeholder="例: 「原因だけを1行で教えて」「小学生でも分かるように解説して」" />
+              <input type="text" id="modifyInput" placeholder="例: 「原因だけを1行で教えて」「小学生でも分かるように解説して」" aria-label="追加の修正要望" />
               <button type="button" class="btn btn-secondary" id="applyModifyBtn">要望を反映して再生成</button>
             </div>
           </div>
@@ -215,7 +218,7 @@
   </div>
 
   <!-- Toast Element -->
-  <div class="toast" id="toast"></div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script src="app.js"></script>
 </body>
