@@ -6,6 +6,13 @@
 ![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
 ![Zero-Dependency](https://img.shields.io/badge/Dependencies-Zero-success.svg)
 ![Platform: Web / Mobile](https://img.shields.io/badge/Platform-Web%20%2F%20Mobile-orange.svg)
+[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Demo-brightgreen.svg)](https://tk030-lotto.github.io/error-de-tomaranai/)
+
+---
+
+## 🌐 ライブデモ
+
+👉 **Webアプリとして今すぐ使う**: [https://tk030-lotto.github.io/error-de-tomaranai/](https://tk030-lotto.github.io/error-de-tomaranai/)
 
 ---
 

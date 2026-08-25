@@ -33,3 +33,10 @@
   - **QA-013**: `app.js` で同一エラーチップ連続クリック時の重複追記ガードを実装。
 - 全ソースファイルの構文および動作確認を実施。
 
+## 2026-08-26: リポジトリのパブリック化 & GitHub Pages公開デプロイ完了
+- GitHubリポジトリ `tk030-lotto/error-de-tomaranai` をプライベートからパブリックに変更。
+- GitHub Pages（`main` ブランチ ルート `/` 配信）を有効化し、本番Webアプリを公開デプロイ完了。
+  - 公開URL: `https://tk030-lotto.github.io/error-de-tomaranai/`
+- `README.md` にライブデモバッジおよびアクセスリンクを追加。
+- 開発記録・永続保存およびGitマイクロコミット・リモートPush完了。
+
